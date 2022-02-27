@@ -5,6 +5,17 @@ const { Schema, model } = require('mongoose');
 const validator = require('validator');
 const thoughtSchema = require('./Thought')
 
+const friendSchema = new Schema(
+    {
+        username:
+        {
+            type: String,
+            sparse: true,
+            required: true,
+            trim: true,
+        }
+    }
+);
 
 //START CONST HERE WITH new Schema
 const userSchema = new Schema(
@@ -23,6 +34,7 @@ const userSchema = new Schema(
         username: {
             type: String,
             unique: true,
+            sparse: true,
             required: true,
             trim: true,
         },
@@ -52,13 +64,13 @@ const userSchema = new Schema(
 const User = model('user', userSchema);
 
 //is this how i trim the username?
-User.aggregate(
-    {
-        $trim: {
-            input: '$username'
-        }
-    }
-)
+// User.aggregate(
+//     {
+//         $trim: {
+//             input: '$username'
+//         }
+//     }
+// )
 
 //module exports User model
 module.exports = User;

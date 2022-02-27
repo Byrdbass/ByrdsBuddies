@@ -14,12 +14,12 @@ const thoughtText = [
 ]
 
 const friends = [
-    'Gigastrength',
-    'Deadlyinx',
-    'Techpill',
-    'Methnerd',
-    'TreeEater',
-    'PackManBrainlure',
+    // 'Gigastrength',
+    // 'Deadlyinx',
+    // 'Techpill',
+    // 'Methnerd',
+    // 'TreeEater',
+    // 'PackManBrainlure',
     'Sharpcharm',
     'Snarelure',
     'Skullbone',
@@ -35,12 +35,12 @@ const usernames = [
     'Methnerd',
     'TreeEater',
     'PackManBrainlure',
-    'Sharpcharm',
-    'Snarelure',
-    'Skullbone',
-    'Burnblaze',
-    'Emberburn',
-    'Emberfire',
+    // 'Sharpcharm',
+    // 'Snarelure',
+    // 'Skullbone',
+    // 'Burnblaze',
+    // 'Emberburn',
+    // 'Emberfire',
 ]
 
 const emails = [
@@ -71,4 +71,14 @@ const reactionBodies = [
     'I treat folks how I’d like to be treated. Forever giving off good energy because I know how beneficial itll be to my life in the long run'
 ]
 
-module.exports = reactionBodies, emails, usernames, thoughtText, friends;
+const getRandomArrayItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const getRandomThoughtText = () => getRandomArrayItem(thoughtText);
+const getRandomUsername = () => getRandomArrayItem(usernames);
+const getRandomFriends = () => getRandomArrayItem(friends);
+const getRandomEmails = () => getRandomArrayItem(emails);
+const getRandomReactionBodies = () => getRandomArrayItem(reactionBodies);
+
+
+
+module.exports = { getRandomThoughtText, getRandomUsername, getRandomFriends ,getRandomEmails, getRandomReactionBodies }
