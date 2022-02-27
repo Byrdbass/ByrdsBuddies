@@ -3,6 +3,7 @@
 //require the thoughts schema
 const { Schema, model } = require('mongoose');
 const validator = require('validator');
+const thoughtSchema = require('./Thought')
 
 
 //START CONST HERE WITH new Schema

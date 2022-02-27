@@ -1,5 +1,4 @@
 //require the models here
-const { resourceLimits } = require('worker_threads')
 const { User, Thought } = require('../models')
 
 //module exports object starts here
@@ -41,7 +40,15 @@ updateUser(req,res) {
 
 //delete to remove user by id
 deleteUser(req,res) {
-
+    User.deleteOne(
+        {_id: ObjectID(req.params.userId) },
+        (err) => {
+            if (err) {
+                if (err) throw err;
+                res.send("document deleted")
+            }
+        }
+    )
 },
 
 //BONUS remove a user's associated thoughts when deleted
