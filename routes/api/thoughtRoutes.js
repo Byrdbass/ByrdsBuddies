@@ -10,7 +10,7 @@ const {
     //do we need to add another?
 } = require('../../controllers/thoughtsController');
 
-router.route('./').get(getThoughts).post(createThought);
+router.route('/').get(getThoughts).post(createThought);
 
 router
     .route('/:thoughtId')

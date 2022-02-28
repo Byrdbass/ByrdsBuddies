@@ -54,7 +54,6 @@ const userSchema = new Schema(
                 isAsync: false
             }
         }
-        //friendcount virtual
     },
     {
         toJSON: {
@@ -63,6 +62,8 @@ const userSchema = new Schema(
         id: false,
     }
 );
+
+//friendcount virtual
 userSchema.virtual('friendCount').get(function() {
     return this.friends.length
 })

@@ -15,7 +15,9 @@ const {
 } = require('../../controllers/userController');
 
 // route api/users
-router.route('/').get(getUsers).post(createUser) //DO WE NEED TO ADD ANOTHER?
+router.route('/')
+    .get(getUsers)
+    .post(createUser) //DO WE NEED TO ADD ANOTHER?
 
 // route api/users/:userId
 
@@ -27,7 +29,8 @@ router
 
 // DO WE NEED TO ADD ANOTHER?
 
-router.route('').post(newFriend).delete
-
+router.route('/:userId/friends/:friendId')
+    .post(newFriend)
+    .delete(deleteFriend);
 
 module.exports = router;
