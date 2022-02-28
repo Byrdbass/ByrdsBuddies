@@ -5,17 +5,17 @@ const { Schema, model } = require('mongoose');
 const validator = require('validator');
 const thoughtSchema = require('./Thought')
 
-const friendSchema = new Schema(
-    {
-        username:
-        {
-            type: String,
-            sparse: true,
-            required: true,
-            trim: true,
-        }
-    }
-);
+// const friendSchema = new Schema(
+//     {
+//         username:
+//         {
+//             type: String,
+//             sparse: true,
+//             required: true,
+//             trim: true,
+//         }
+//     }
+// );
 
 //START CONST HERE WITH new Schema
 const userSchema = new Schema(
@@ -24,17 +24,21 @@ const userSchema = new Schema(
         thoughts: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'Thought',
+                ref: 'thought',
             }
         ],
         //need friends arrray
-        friends: [friendSchema],
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'user'
+            }
+        ],
         //_id?
         //username
         username: {
             type: String,
             unique: true,
-            sparse: true,
             required: true,
             trim: true,
         },
@@ -59,6 +63,9 @@ const userSchema = new Schema(
         id: false,
     }
 );
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length
+})
 
 //create constant for User model with two properties name of route user and userSchema
 const User = model('user', userSchema);
