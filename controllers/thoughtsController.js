@@ -25,9 +25,16 @@ module.exports = {
     //post to create a new thought - MUST PUSH THE CREATED THOUGHT'S ID TO THE ASSOCIATED USER'S THOUGHTS ARRAY FIELD
     //post includes thoughtText, username, and userId
     createThought(req, res) {
-        Thought.create(req.body)
-            .then((thought) => {
-                res.status(200).json(thought)
+        Thought.create(req.body).
+            then((newThought) => {
+                console.log(newThought)
+            return User.findOneAndUpdate(
+            { _id: req.body.userId},
+            { $push: { thoughts: ObjectId.valueOf() } }, 
+            { new: true } )
+        })
+            .then((newThought) => {
+                return res.status(200).json(newThought)
             })
             .catch((err) => res.status(500).json(err))
             //     return User.findOneAndUpdate(
@@ -69,10 +76,31 @@ module.exports = {
                     ? res.status(404).json({ message: 'there is no thought with this Id' })
                     : res.json(thoughtDeleted)
             })
-    }
+    },
 
     //FOR API/THOUGHTS/:thoughtId/reactions
     //post to create a reaction stored in single thought's REACTIONS ARRAY FIELD
-
+    createReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body } },
+            { new: true }
+        )
+            .then((reactionUpdate) => 
+                !reactionUpdate
+                    ? res.status(404).json({ message: 'there is no thought with this Id, try again' })
+                    : res.json(reactionUpdate)
+                    )
+                    .catch((err) => {
+                        console.log(err);
+                        res.status(500).json(err)
+                    });
+    },
     //delete to pull and remove a reaction by teh reaction's reactionId value
+    deleteReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: req.params.reactionID}}
+        )
+    }
 }
